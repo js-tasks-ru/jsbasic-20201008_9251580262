@@ -4,5 +4,11 @@
  * @returns {Boolean}
  */
 function isEmpty(obj) {
-  // ваш код...
+  let result = Object.values(obj);
+  if(result.length > 0){
+    return false;
+  } else{
+    return true;
+  } 
 }
+
