@@ -18,5 +18,3 @@ function getMinMax(str) {
     max,
   }
 }
-
-console.log(getMinMax(inputData));

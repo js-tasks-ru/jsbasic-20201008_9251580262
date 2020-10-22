@@ -39,4 +39,4 @@ function showSalary(users, age) {
   return result;
 }
 
-let result = showSalary(data, 40);
+let result = showSalary(users, 40);
