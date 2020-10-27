@@ -2,6 +2,7 @@
  * @param {string} str
  * @returns {string}
  */
+
 function camelize(str) {
   str = str.trim().split('-');
   str = str.map(item => {
