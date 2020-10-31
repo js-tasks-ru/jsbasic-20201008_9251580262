@@ -2,38 +2,39 @@ function initCarousel() {
   const carouselArrowRight = document.querySelector('.carousel__arrow_right');
   const carouselArrowLeft = document.querySelector('.carousel__arrow_left');
   const carouselSlide = [...document.querySelectorAll('.carousel__slide')];
+  const carouselInner = document.querySelector('.carousel__inner');
 
   carouselArrowLeft.style.display = 'none';
   document.body.addEventListener('click', (event) => {
     const target = event.target;
-    let shift = carouselSlide[0].offsetWidth;
+    let shift = carouselInner.offsetWidth;
     if (target === carouselArrowRight) {
       carouselArrowLeft.style.display = '';
 
-      if (carouselSlide[0].style.transform === 'translateX(0px)' || carouselSlide[0].style.transform === '') {
-        shift = carouselSlide[0].offsetWidth;
-      } else if (carouselSlide[0].style.transform !== '') {
-        shift += parseInt(carouselSlide[0].style.transform.slice(12, 17));
+      if (carouselInner.style.transform === 'translateX(0px)' || carouselInner.style.transform === '') {
+        shift = carouselInner.offsetWidth;
+      } else if (carouselInner.style.transform !== '') {
+        shift += parseInt(carouselInner.style.transform.slice(12, 17));
       }
 
-      carouselSlide.forEach(item => {
-        if (shift + carouselSlide[0].offsetWidth === carouselSlide[0].offsetWidth * carouselSlide.length) {
-          carouselArrowRight.style.display = 'none'
-        }
-        item.style.transform = `translateX(-${shift}px)`;
-      })
+
+      if (shift + carouselInner.offsetWidth === carouselInner.offsetWidth * carouselSlide.length) {
+        carouselArrowRight.style.display = 'none'
+      }
+      carouselInner.style.transform = `translateX(-${shift}px)`;
+
 
     } else if (target === carouselArrowLeft) {
-      if (carouselSlide[0].style.transform !== '' || carouselSlide[0].style.transform !== 'translateX(0px)') {
-        shift = parseInt(carouselSlide[0].style.transform.slice(12, 17)) - carouselSlide[0].offsetWidth;
+      if (carouselInner.style.transform !== '' || carouselInner.style.transform !== 'translateX(0px)') {
+        shift = parseInt(carouselInner.style.transform.slice(12, 17)) - carouselInner.offsetWidth;
         carouselArrowRight.style.display = ''
       }
-      carouselSlide.forEach(item => {
-        if (shift === 0) {
-          carouselArrowLeft.style.display = 'none'
-        }
-        item.style.transform = `translateX(-${shift}px)`;
-      })
+
+      if (shift === 0) {
+        carouselArrowLeft.style.display = 'none'
+      }
+      carouselInner.style.transform = `translateX(-${shift}px)`;
+
     }
   })
 }
