@@ -4,5 +4,10 @@
  * @return {HTMLUListElement}
  */
 function makeFriendsList(friends) {
-  // ваш код...
+  const ul = document.createElement('ul');
+  document.body.insertAdjacentElement('afterbegin', ul);
+  friends.forEach(item => {
+    ul.insertAdjacentHTML('beforeend', `<li>${item.firstName} ${item.lastName}</li>`);
+  });
+  return ul;
 }
