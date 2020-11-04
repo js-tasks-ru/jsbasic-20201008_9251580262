@@ -30,5 +30,34 @@
  */
 export default class UserTable {
   constructor(rows) {
+    this.rows = rows;
+    this.elem = document.querySelector('table');
+    this.render();
+    this.delite();
+  }
+
+  render() {
+    this.rows.forEach(item => {
+      const { name, age, salary, city } = item;
+      this.elem.insertAdjacentHTML('afterbegin', `
+      <tr>
+      <td>${name}</td>
+      <td>${age}</td>
+      <td>${salary}</td>
+      <td>${city}</td>
+      <td><button>X</button></td>
+    </tr>
+      `)
+    })
+  }
+
+  delite() {
+    const btn = [...document.querySelectorAll('button')];
+    btn.forEach(item => {
+      item.addEventListener('click', (event) => {
+        let tr = event.target.closest('tr');
+        tr.remove();
+      })
+    })
   }
 }
