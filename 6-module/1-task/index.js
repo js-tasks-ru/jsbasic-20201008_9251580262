@@ -31,7 +31,7 @@
 export default class UserTable {
   constructor(rows) {
     this.rows = rows;
-    this.elem = document.querySelector('table');
+    this.elem = document.createElement('table');
     this.render();
     this.delite();
   }
@@ -40,7 +40,7 @@ export default class UserTable {
     this.rows.forEach(item => {
       const { name, age, salary, city } = item;
       this.elem.insertAdjacentHTML('afterbegin', `
-      <tr>
+    <tr>
       <td>${name}</td>
       <td>${age}</td>
       <td>${salary}</td>
@@ -52,7 +52,7 @@ export default class UserTable {
   }
 
   delite() {
-    const btn = [...document.querySelectorAll('button')];
+    const btn = [...this.elem.querySelectorAll('button')];
     btn.forEach(item => {
       item.addEventListener('click', (event) => {
         let tr = event.target.closest('tr');

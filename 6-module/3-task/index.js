@@ -8,7 +8,6 @@ export default class Carousel {
     this.showCarousel();
     this.render();
     this.nextElem();
-
   }
 
   showCarousel() {
@@ -30,8 +29,10 @@ export default class Carousel {
 
     this.slides.forEach(item => {
       const { name, price, image, id } = item;
+
+
       const slide = `
-      <div class="carousel__slide" data-id="penang-shrimp">
+      <div class="carousel__slide" data-id="${id}">
         <img src="/assets/images/carousel/${image}" class="carousel__img" alt="slide">
         <div class="carousel__caption">
           <span class="carousel__price">€${price.toFixed(2)}</span>
@@ -50,7 +51,6 @@ export default class Carousel {
           bubbles: true,
         });
         e.target.closest('.carousel__slide').dispatchEvent(event);
-        console.log(id);
       })
     })
   }
@@ -59,10 +59,11 @@ export default class Carousel {
     const carouselArrowLeft = this.elem.querySelector('.carousel__arrow_left');
     const carouselArrowRight = this.elem.querySelector('.carousel__arrow_right');
     const carouselSlide = [...this.elem.querySelectorAll('.carousel__slide')];
-
+    carouselArrowLeft.style.display = 'none';
     document.body.addEventListener('click', (event) => {
       const target = event.target;
       let shift = this.wrapper.offsetWidth;
+
       if (target === carouselArrowRight) {
         carouselArrowLeft.style.display = '';
 
@@ -89,7 +90,6 @@ export default class Carousel {
           carouselArrowLeft.style.display = 'none'
         }
         this.wrapper.style.transform = `translateX(-${shift}px)`;
-
       }
     })
   }
