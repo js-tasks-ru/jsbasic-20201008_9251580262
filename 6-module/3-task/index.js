@@ -8,6 +8,7 @@ export default class Carousel {
     this.showCarousel();
     this.render();
     this.nextElem();
+    this.lintener();
   }
 
   showCarousel() {
@@ -42,14 +43,20 @@ export default class Carousel {
           </button>
         </div>
       </div>`;
-      this.wrapper.insertAdjacentHTML('afterbegin', slide);
+      this.wrapper.insertAdjacentHTML('beforeend', slide);
+    })
 
-      const btn = this.wrapper.querySelector('.carousel__button');
-      btn.addEventListener('click', (e) => {
+  }
+
+  lintener() {
+    const btns = [...this.wrapper.querySelectorAll('.carousel__button')];
+    btns.forEach(item => {
+      item.addEventListener('click', (e) => {
         let event = new CustomEvent("product-add", {
-          detail: id,
+          detail: e.target.closest('.carousel__slide').dataset.id,
           bubbles: true,
         });
+        console.log(event.detail);
         e.target.closest('.carousel__slide').dispatchEvent(event);
       })
     })
@@ -59,6 +66,7 @@ export default class Carousel {
     const carouselArrowLeft = this.elem.querySelector('.carousel__arrow_left');
     const carouselArrowRight = this.elem.querySelector('.carousel__arrow_right');
     const carouselSlide = [...this.elem.querySelectorAll('.carousel__slide')];
+
     carouselArrowLeft.style.display = 'none';
     document.body.addEventListener('click', (event) => {
       const target = event.target;
