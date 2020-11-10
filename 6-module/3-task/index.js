@@ -56,7 +56,6 @@ export default class Carousel {
           detail: e.target.closest('.carousel__slide').dataset.id,
           bubbles: true,
         });
-        console.log(event.detail);
         e.target.closest('.carousel__slide').dispatchEvent(event);
       })
     })
