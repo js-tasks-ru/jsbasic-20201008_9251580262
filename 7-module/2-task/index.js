@@ -2,16 +2,12 @@ import createElement from '../../assets/lib/create-element.js';
 
 export default class Modal {
   constructor() {
-    this.open();
-    this.setTitle();
-    this.setBody();
-    this.removeElem();
-  }
 
-  open() {
     this.elem = document.createElement('div');
     this.elem.classList.add('modal');
-    document.body.classList.add('is-modal-open');
+
+
+
     this.elem.insertAdjacentHTML('afterbegin', `
       <div class="modal__overlay"></div>
       <div class="modal__inner">
@@ -27,7 +23,25 @@ export default class Modal {
       <div class="modal__body">
       </div>
     `)
+
+
+  }
+
+  open() {
+    document.body.classList.add('is-modal-open');
     document.body.insertAdjacentElement('afterbegin', this.elem);
+    const modalClose = this.elem.querySelector('.modal__close');
+    modalClose.onclick = () => {
+      this.close();
+      modalClose.onclick = null;
+    }
+    document.onkeydown = (e) => {
+      if (e.code === 'Escape') {
+        this.close();
+        document.onkeydown = null;
+      }
+
+    }
   }
 
   setTitle(string) {
@@ -37,8 +51,9 @@ export default class Modal {
 
   setBody(node) {
     const modalBody = this.elem.querySelector('.modal__body');
-    modalBody.innerHTML = node;
+    modalBody.insertAdjacentElement('afterbegin', node);
   }
+
   close() {
     let array = [...document.body.children];
     document.body.classList.remove('is-modal-open');
@@ -49,16 +64,4 @@ export default class Modal {
     })
   }
 
-  removeElem() {
-    const modalClose = this.elem.querySelector('.modal__close');
-    modalClose.addEventListener('click', () => {
-      this.close();
-    })
-    document.addEventListener('keydown', (e) => {
-      if (e.code === 'Escape') {
-        this.close();
-      }
-    })
-
-  }
 }

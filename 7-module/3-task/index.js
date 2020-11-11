@@ -32,7 +32,6 @@ export default class StepSlider {
      </div>
     `;
 
-    document.body.insertAdjacentElement('afterbegin', this.elem);
   }
 
   listener() {
@@ -56,7 +55,7 @@ export default class StepSlider {
   }
 
   sliderVChange() {
-    this.elem.addEventListener('change', () => {
+    this.elem.addEventListener('click', () => {
       let event = new CustomEvent('slider-change', {
         detail: this.value,
         bubbles: true

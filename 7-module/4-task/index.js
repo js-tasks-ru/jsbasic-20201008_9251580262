@@ -5,9 +5,9 @@ export default class StepSlider {
     this.elem = document.createElement('div');
     this.elem.classList.add('slider');
     this.render();
-    this.sliderVChange();
-    this.listener();
     this.step();
+    this.listener();
+    this.sliderVChange();
   }
 
   render() {
@@ -33,7 +33,6 @@ export default class StepSlider {
      </div>
     `;
 
-    document.body.insertAdjacentElement('afterbegin', this.elem);
   }
 
 
@@ -73,6 +72,7 @@ export default class StepSlider {
         let sliderSteps = [...this.elem.querySelector('.slider__steps').children];
         sliderSteps.forEach(item => item.classList.remove('slider__step-active'));
         sliderSteps[value].classList.add('slider__step-active');
+        this.sliderVChange();
       };
 
 
@@ -118,7 +118,7 @@ export default class StepSlider {
   }
 
   sliderVChange() {
-    this.elem.addEventListener('change', () => {
+    this.elem.addEventListener('click', () => {
       let event = new CustomEvent('slider-change', {
         detail: this.value,
         bubbles: true
