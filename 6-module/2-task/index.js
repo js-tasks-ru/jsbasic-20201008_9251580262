@@ -34,7 +34,9 @@ export default class ProductCard {
       });
       elems.dispatchEvent(event);
     })
+
     return elems;
+    console.log(elems);
   }
 }
 
